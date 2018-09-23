@@ -6,6 +6,17 @@ module.exports = {
     res.status(200).json(stores)
   },
 
+  getNearbyStores: async (req, res, next) => {
+    console.log(req.value.query)
+    const stores = await Store.aggregate().near({
+      near: [parseFloat(req.value.query.lng), parseFloat(req.value.query.lat)],
+      maxDistance: 2 / 6371, // within 2km (6371 is the earth radius in km)
+      spherical: true,
+      distanceField: 'dist.calculated'
+    })
+    res.status(200).json(stores)
+  },
+
   createStore: async (req, res, next) => {
     const newStore = await new Store(req.value.body).save()
     res.status(201).json(newStore)

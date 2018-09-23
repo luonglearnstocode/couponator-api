@@ -16,6 +16,21 @@ module.exports = {
     }
   },
 
+  validateQuery: (schema) => {
+    return (req, res, next) => {
+      const result = Joi.validate(req.query, schema)
+      if (result.error) {
+        return res.status(400).json(result.error)
+      } else {
+        if (!req.value) req.value = {}
+        if (!req.value['query']) req.value['query'] = {}
+
+        req.value['query'] = result.value
+        next()
+      }
+    }
+  },
+
   validateBody: (schema) => {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema)
@@ -56,6 +71,10 @@ module.exports = {
     }),
     idSchema: Joi.object().keys({
       param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    storeNearbyQuerySchema: Joi.object().keys({
+      lng: Joi.number().required(),
+      lat: Joi.number().required()
     })
   }
 }

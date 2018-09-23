@@ -2,8 +2,8 @@ const express = require('express')
 const morgan = require('morgan') // https://www.npmjs.com/package/morgan
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const cors = require('cors')
-const helmet = require('helmet')
+const cors = require('cors') // https://www.npmjs.com/package/cors
+const helmet = require('helmet') // https://www.npmjs.com/package/helmet
 
 require('dotenv').config() // https://www.npmjs.com/package/dotenv
 const users = require('./routes/users')

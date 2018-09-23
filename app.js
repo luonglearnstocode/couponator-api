@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan') // https://www.npmjs.com/package/morgan
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 require('dotenv').config() // https://www.npmjs.com/package/dotenv
 const users = require('./routes/users')
@@ -16,6 +17,7 @@ mongoose.set('useCreateIndex', true)
 // ================================================
 // Middleware
 // ================================================
+app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 

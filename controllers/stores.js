@@ -6,15 +6,16 @@ module.exports = {
     res.status(200).json(stores)
   },
 
+  // get nearby stores which are offering coupons
   getNearbyStores: async (req, res, next) => {
-    console.log(req.value.query)
     const stores = await Store.aggregate().near({
       near: [parseFloat(req.value.query.lng), parseFloat(req.value.query.lat)],
       maxDistance: 2 / 6371, // within 2km (6371 is the earth radius in km)
       spherical: true,
       distanceField: 'dist.calculated'
     })
-    res.status(200).json(stores)
+    const storesWithCoupons = stores.filter(store => store.couponAvailable)
+    res.status(200).json(storesWithCoupons)
   },
 
   createStore: async (req, res, next) => {

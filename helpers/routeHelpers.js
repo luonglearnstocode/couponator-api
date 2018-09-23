@@ -44,6 +44,16 @@ module.exports = {
       email: Joi.string().email(),
       password: Joi.string()
     }),
+    storeSchema: Joi.object().keys({
+      name: Joi.string(),
+      description: Joi.string(),
+      couponAvailable: Joi.boolean(),
+      geometry: Joi.object()
+        .keys({
+          type: Joi.string(),
+          coordinates: Joi.array().items(Joi.number()).length(2)
+        })
+    }),
     idSchema: Joi.object().keys({
       param: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     })

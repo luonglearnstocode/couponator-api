@@ -6,6 +6,7 @@ const cors = require('cors')
 
 require('dotenv').config() // https://www.npmjs.com/package/dotenv
 const users = require('./routes/users')
+const stores = require('./routes/stores')
 
 const app = express()
 
@@ -13,6 +14,7 @@ const app = express()
 const uri = process.env.MLAB_URI
 mongoose.connect(uri, { useNewUrlParser: true })
 mongoose.set('useCreateIndex', true)
+mongoose.set('useFindAndModify', false)
 
 // ================================================
 // Middleware
@@ -24,8 +26,9 @@ app.use(bodyParser.json())
 // ================================================
 // Routes
 // ================================================
-app.get('/', (req, res) => res.send('Welcome to Couponator API!'))
+app.get('/', (req, res) => res.send('Welcome to Couponator API!!!'))
 app.use('/users', users)
+app.use('/stores', stores)
 
 // ================================================
 // Errors handler

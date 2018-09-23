@@ -16,4 +16,8 @@ router.route('/:storeId')
     StoresController.updateStore)
   .delete(validateParam(schemas.idSchema, 'storeId'), StoresController.deleteStore)
 
+router.route('/:storeId/coupons')
+  .get(validateParam(schemas.idSchema, 'storeId'), StoresController.getStoreCoupons)
+  .post([validateParam(schemas.idSchema, 'storeId'), validateBody(schemas.couponSchema)], StoresController.addStoreCoupon)
+
 module.exports = router

@@ -8,6 +8,7 @@ const helmet = require('helmet') // https://www.npmjs.com/package/helmet
 require('dotenv').config() // https://www.npmjs.com/package/dotenv
 const users = require('./routes/users')
 const stores = require('./routes/stores')
+const coupons = require('./routes/coupons')
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => res.send('Welcome to Couponator API!!!'))
 app.use('/users', users)
 app.use('/stores', stores)
+app.use('/coupons', coupons)
 
 // ================================================
 // Errors handler

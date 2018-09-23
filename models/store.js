@@ -24,7 +24,11 @@ const storeSchema = new Schema({
     type: Boolean,
     default: true
   },
-  geometry: GeoSchema
+  geometry: GeoSchema,
+  coupons: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Coupon'
+  }]
 })
 
 const Store = mongoose.model('Store', storeSchema)

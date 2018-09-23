@@ -75,6 +75,19 @@ module.exports = {
     storeNearbyQuerySchema: Joi.object().keys({
       lng: Joi.number().required(),
       lat: Joi.number().required()
+    }),
+    couponSchema: Joi.object().keys({
+      description: Joi.string().required(),
+      value: Joi.number().required()
+    }),
+    patchCouponSchema: Joi.object().keys({
+      description: Joi.string(),
+      value: Joi.number()
+    }),
+    newCouponSchema: Joi.object().keys({
+      description: Joi.string().required(),
+      value: Joi.number().required(),
+      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     })
   }
 }

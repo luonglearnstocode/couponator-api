@@ -1,5 +1,6 @@
 const Store = require('../models/store')
 const Coupon = require('../models/coupon')
+const User = require('../models/user')
 
 module.exports = {
   getAllStores: async (req, res, next) => {
@@ -41,7 +42,20 @@ module.exports = {
   deleteStore: async (req, res, next) => {
     const { storeId } = req.value.params
     const store = await Store.findById(storeId)
-    await Coupon.find({ store: storeId }).remove() // remove coupons offered by this store
+    if (!store) return res.status(404).json({ error: 'Store doesn\'t exist ' })
+    // for each coupon of the store, remove from user's coupons list
+    store.coupons.forEach(async (couponId) => {
+      const coupon = await Coupon.findById(couponId)
+      if (!coupon) return res.status(404).json({ error: 'Coupon doesn\'t exist ' })
+      coupon.acquiredBy.forEach(async (userId) => {
+        const user = await User.findById(userId)
+        user.coupons.pull(coupon)
+        await user.save()
+      })
+      await coupon.remove()
+    })
+    // remove coupons offered by this store
+    // await Coupon.find({ store: storeId }).remove()
     await store.remove()
     res.sendStatus(200)
   },

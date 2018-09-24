@@ -12,7 +12,7 @@ router.route('/near')
 
 router.route('/:storeId')
   .get(validateParam(schemas.idSchema, 'storeId'), StoresController.getStoreById)
-  .patch([validateParam(schemas.idSchema, 'storeId'), validateBody(schemas.storeSchema)],
+  .patch([validateParam(schemas.idSchema, 'storeId'), validateBody(schemas.patchStoreSchema)],
     StoresController.updateStore)
   .delete(validateParam(schemas.idSchema, 'storeId'), StoresController.deleteStore)
 

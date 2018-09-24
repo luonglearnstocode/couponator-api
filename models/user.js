@@ -20,7 +20,11 @@ const userSchema = new Schema({
   lastName: {
     type: String,
     required: true
-  }
+  },
+  coupons: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Coupon'
+  }]
 })
 
 // create a model

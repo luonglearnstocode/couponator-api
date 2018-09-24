@@ -9,6 +9,8 @@ router.route('/')
 
 router.route('/:couponId')
   .get(validateParam(schemas.idSchema, 'couponId'), CouponsController.getCouponById)
+  .post([validateParam(schemas.idSchema, 'couponId'), validateBody(schemas.claimCouponSchema)],
+    CouponsController.claimCoupon)
   .patch([validateParam(schemas.idSchema, 'couponId'), validateBody(schemas.patchCouponSchema)],
     CouponsController.updateCoupon)
   .delete(validateParam(schemas.idSchema, 'couponId'), CouponsController.deleteCoupon)

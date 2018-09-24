@@ -60,6 +60,16 @@ module.exports = {
       password: Joi.string()
     }),
     storeSchema: Joi.object().keys({
+      name: Joi.string().required(),
+      description: Joi.string(),
+      couponAvailable: Joi.boolean(),
+      geometry: Joi.object()
+        .keys({
+          type: Joi.string(),
+          coordinates: Joi.array().items(Joi.number()).length(2)
+        }).required()
+    }),
+    patchStoreSchema: Joi.object().keys({
       name: Joi.string(),
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
@@ -77,15 +87,28 @@ module.exports = {
       lat: Joi.number().required()
     }),
     couponSchema: Joi.object().keys({
-      description: Joi.string().required(),
-      value: Joi.number().required()
-    }),
-    patchCouponSchema: Joi.object().keys({
+      title: Joi.string().required(),
       description: Joi.string(),
-      value: Joi.number()
+      value: Joi.number().min(0).required(),
+      prob: Joi.number().min(0).max(1).required()
     }),
     newCouponSchema: Joi.object().keys({
-      description: Joi.string().required(),
+      title: Joi.string().required(),
+      description: Joi.string(),
+      value: Joi.number().min(0).required(),
+      prob: Joi.number().min(0).max(1).required(),
+      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    patchCouponSchema: Joi.object().keys({
+      title: Joi.string(),
+      description: Joi.string(),
+      value: Joi.number().min(0),
+      prob: Joi.number().min(0).max(1)
+    }),
+    claimCouponSchema: Joi.object().keys({
+      user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    purchaseSchema: Joi.object().keys({
       value: Joi.number().required(),
       store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     })

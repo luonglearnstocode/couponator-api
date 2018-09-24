@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Coupon = require('../models/coupon')
 
 module.exports = {
   getAllUsers: async (req, res, next) => {
@@ -28,7 +29,20 @@ module.exports = {
   deleteUser: async (req, res, next) => {
     const { userId } = req.value.params
     const user = await User.findById(userId)
+    if (!user) return res.status(404).json({ error: 'User doesn\'t exist ' })
+    // remove user from his coupons acquiredBy list
+    user.coupons.forEach(async couponId => {
+      const coupon = await Coupon.findById(couponId)
+      coupon.acquiredBy.pull(user)
+      await coupon.save()
+    })
     await user.remove()
     res.sendStatus(200)
+  },
+
+  getUserCoupons: async (req, res, next) => {
+    const { userId } = req.value.params
+    const user = await User.findById(userId).populate('coupons')
+    res.status(200).json(user.coupons)
   }
 }

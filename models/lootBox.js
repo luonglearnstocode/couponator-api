@@ -2,33 +2,37 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 // create a schema
-const couponSchema = new Schema({
+const lootBoxSchema = new Schema({
   title: {
     type: String,
     required: true
   },
   description: String,
-  value: {
+  accumulatedValue: {
+    type: Number,
+    default: 0
+  },
+  price: {
     type: Number,
     required: true
   },
-  prob: { // the probability to get this voucher
+  progress: {
     type: Number,
-    required: true
+    default: 0
   },
   store: {
     type: Schema.Types.ObjectId,
     ref: 'Store',
     required: true
   },
-  acquiredBy: [{
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }
 })
 
 // create a model
-const Coupon = mongoose.model('Coupon', couponSchema)
+const LootBox = mongoose.model('LootBox', lootBoxSchema)
 
 // export the model
-module.exports = Coupon
+module.exports = LootBox

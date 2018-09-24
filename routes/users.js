@@ -13,4 +13,7 @@ router.route('/:userId')
     UsersController.updateUser)
   .delete(validateParam(schemas.idSchema, 'userId'), UsersController.deleteUser)
 
+router.route('/:userId/coupons')
+  .get(validateParam(schemas.idSchema, 'userId'), UsersController.getUserCoupons)
+
 module.exports = router

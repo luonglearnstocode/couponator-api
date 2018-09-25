@@ -109,8 +109,12 @@ module.exports = {
       user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
     }),
     purchaseSchema: Joi.object().keys({
-      value: Joi.number().required(),
-      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+      price: Joi.number().min(0).required(),
+      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+      user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    patchPurchaseSchema: Joi.object().keys({ // only allow update price
+      price: Joi.number().min(0).required()
     })
   }
 }

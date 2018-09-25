@@ -28,6 +28,10 @@ const storeSchema = new Schema({
   coupons: [{
     type: Schema.Types.ObjectId,
     ref: 'Coupon'
+  }],
+  purchases: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Purchase'
   }]
 })
 

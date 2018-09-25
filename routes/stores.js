@@ -20,4 +20,7 @@ router.route('/:storeId/coupons')
   .get(validateParam(schemas.idSchema, 'storeId'), StoresController.getStoreCoupons)
   .post([validateParam(schemas.idSchema, 'storeId'), validateBody(schemas.couponSchema)], StoresController.addStoreCoupon)
 
+router.route('/:storeId/purchases')
+  .get(validateParam(schemas.idSchema, 'storeId'), StoresController.getStorePurchases)
+
 module.exports = router

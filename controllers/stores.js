@@ -75,5 +75,11 @@ module.exports = {
     store.coupons.push(newCoupon) // add coupon to store's coupons list
     await store.save() // save store
     res.status(201).json(newCoupon)
+  },
+
+  getStorePurchases: async (req, res, next) => {
+    const { storeId } = req.value.params
+    const store = await Store.findById(storeId).populate('purchases')
+    res.status(200).json(store.purchases)
   }
 }

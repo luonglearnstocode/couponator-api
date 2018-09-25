@@ -16,4 +16,7 @@ router.route('/:userId')
 router.route('/:userId/coupons')
   .get(validateParam(schemas.idSchema, 'userId'), UsersController.getUserCoupons)
 
+router.route('/:userId/purchases')
+  .get(validateParam(schemas.idSchema, 'userId'), UsersController.getUserPurchases)
+
 module.exports = router

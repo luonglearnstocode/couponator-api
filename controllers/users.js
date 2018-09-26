@@ -50,5 +50,11 @@ module.exports = {
     const { userId } = req.value.params
     const user = await User.findById(userId).populate('purchases')
     res.status(200).json(user.purchases)
+  },
+
+  getUserLootBoxes: async (req, res, next) => {
+    const { userId } = req.value.params
+    const user = await User.findById(userId).populate('lootBoxes')
+    res.status(200).json(user.lootBoxes)
   }
 }

@@ -13,4 +13,7 @@ router.route('/:lootBoxId')
     LootBoxesController.updateLootBox)
   .delete(validateParam(schemas.idSchema, 'lootBoxId'), LootBoxesController.deleteLootBox)
 
+router.route('/:lootBoxId/open')
+  .get(validateParam(schemas.idSchema, 'lootBoxId'), LootBoxesController.openLootBox)
+
 module.exports = router

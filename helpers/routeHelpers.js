@@ -63,6 +63,7 @@ module.exports = {
       name: Joi.string().required(),
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
+      lootBoxPrice: Joi.number().min(0).required(),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),
@@ -73,6 +74,7 @@ module.exports = {
       name: Joi.string(),
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
+      lootBoxPrice: Joi.number().min(0),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),
@@ -115,6 +117,14 @@ module.exports = {
     }),
     patchPurchaseSchema: Joi.object().keys({ // only allow update price
       price: Joi.number().min(0).required()
+    }),
+    lootBoxSchema: Joi.object().keys({
+      description: Joi.string(),
+      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+      user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+    }),
+    patchLootBoxSchema: Joi.object().keys({
+      description: Joi.string()
     })
   }
 }

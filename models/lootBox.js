@@ -3,18 +3,10 @@ const Schema = mongoose.Schema
 
 // create a schema
 const lootBoxSchema = new Schema({
-  title: {
-    type: String,
-    required: true
-  },
   description: String,
   accumulatedValue: {
     type: Number,
     default: 0
-  },
-  price: {
-    type: Number,
-    required: true
   },
   progress: {
     type: Number,
@@ -27,7 +19,8 @@ const lootBoxSchema = new Schema({
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   }
 })
 

@@ -32,6 +32,14 @@ const storeSchema = new Schema({
   purchases: [{
     type: Schema.Types.ObjectId,
     ref: 'Purchase'
+  }],
+  lootBoxPrice: {
+    type: Number,
+    required: true
+  },
+  lootBoxes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'LootBox'
   }]
 })
 

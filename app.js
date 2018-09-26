@@ -10,6 +10,7 @@ const users = require('./routes/users')
 const stores = require('./routes/stores')
 const coupons = require('./routes/coupons')
 const purchases = require('./routes/purchases')
+const lootBoxes = require('./routes/lootBoxes')
 
 const app = express()
 
@@ -35,6 +36,7 @@ app.use('/users', users)
 app.use('/stores', stores)
 app.use('/coupons', coupons)
 app.use('/purchases', purchases)
+app.use('/lootBoxes', lootBoxes)
 
 // ================================================
 // Errors handler

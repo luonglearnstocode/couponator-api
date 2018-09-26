@@ -28,6 +28,10 @@ const userSchema = new Schema({
   purchases: [{
     type: Schema.Types.ObjectId,
     ref: 'Purchase'
+  }],
+  lootBoxes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'LootBox'
   }]
 })
 

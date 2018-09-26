@@ -1,6 +1,7 @@
 const Purchase = require('../models/purchase')
 const Store = require('../models/store')
 const User = require('../models/user')
+const LootBox = require('../models/lootBox')
 
 module.exports = {
   getAllPurchases: async (req, res, next) => {
@@ -16,6 +17,21 @@ module.exports = {
     // create new purchase
     const newPurchase = new Purchase(req.value.body)
     await newPurchase.save()
+    // check if the user already has a lootbox with the store, if not create a new lootbox
+    const lootBoxBody = {
+      user: req.value.body.user,
+      store: req.value.body.store
+    }
+    const lootBox = await LootBox.findOne(lootBoxBody)
+    const newLootBox = lootBox || new LootBox(lootBoxBody)
+    // update lootbox values
+    newLootBox.accumulatedValue += req.value.body.price
+    newLootBox.progress = newLootBox.accumulatedValue / store.lootBoxPrice
+    await newLootBox.save()
+    if (!lootBox) { // add new lootbox to store & user's lootboxes list
+      store.lootBoxes.push(newLootBox)
+      user.lootBoxes.push(newLootBox)
+    }
     // add created purchase to store & user purchases list
     store.purchases.push(newPurchase)
     await store.save()

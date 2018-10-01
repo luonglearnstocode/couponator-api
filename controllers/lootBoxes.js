@@ -82,14 +82,14 @@ module.exports = {
 
     const rewards = [] // list of coupons that user will get
     // for each coupon from store's coupons list
-
     for (const couponId of store.coupons) {
-      const coupon = await Coupon.findById(couponId)
+      const coupon = await Coupon.findById(couponId).populate('store', 'name')
       if (Math.random() < coupon.prob) { // user will get coupon
         coupon.acquiredBy.push(user)
         await coupon.save()
         user.coupons.push(couponId)
         await user.save()
+        console.log(coupon)
         rewards.push(coupon) // add coupon to rewards list
       }
     }

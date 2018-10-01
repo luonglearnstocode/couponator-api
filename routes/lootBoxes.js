@@ -9,6 +9,7 @@ router.route('/')
 
 router.route('/:lootBoxId')
   .get(validateParam(schemas.idSchema, 'lootBoxId'), LootBoxesController.getLootBoxById)
+  .post(validateParam(schemas.idSchema, 'lootBoxId'), LootBoxesController.openLootBox)
   .patch([validateParam(schemas.idSchema, 'lootBoxId'), validateBody(schemas.patchLootBoxSchema)],
     LootBoxesController.updateLootBox)
   .delete(validateParam(schemas.idSchema, 'lootBoxId'), LootBoxesController.deleteLootBox)

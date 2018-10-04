@@ -42,7 +42,7 @@ module.exports = {
 
   getUserCoupons: async (req, res, next) => {
     const { userId } = req.value.params
-    const user = await User.findById(userId).populate('coupons')
+    const user = await User.findById(userId).populate({ path: 'coupons', populate: { path: 'store', select: 'name' } })
     res.status(200).json(user.coupons)
   },
 
@@ -54,7 +54,7 @@ module.exports = {
 
   getUserLootBoxes: async (req, res, next) => {
     const { userId } = req.value.params
-    const user = await User.findById(userId).populate('lootBoxes')
+    const user = await User.findById(userId).populate({ path: 'lootBoxes', populate: { path: 'store', select: 'name' } })
     res.status(200).json(user.lootBoxes)
   }
 }

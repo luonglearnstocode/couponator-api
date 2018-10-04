@@ -5,7 +5,7 @@ const Coupon = require('../models/coupon')
 
 module.exports = {
   getAllLootBoxes: async (req, res, next) => {
-    const lootBoxes = await LootBox.find()
+    const lootBoxes = await LootBox.find().populate('store', 'name')
     res.status(200).json(lootBoxes)
   },
 
@@ -28,7 +28,7 @@ module.exports = {
 
   getLootBoxById: async (req, res, next) => {
     const { lootBoxId } = req.value.params
-    const lootBox = await LootBox.findById(lootBoxId)
+    const lootBox = await LootBox.findById(lootBoxId).populate('store', 'name')
     res.status(200).json(lootBox)
   },
 

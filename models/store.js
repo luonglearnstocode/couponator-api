@@ -40,7 +40,11 @@ const storeSchema = new Schema({
   lootBoxes: [{
     type: Schema.Types.ObjectId,
     ref: 'LootBox'
-  }]
+  }],
+  img: {
+    type: String,
+    required: true
+  }
 })
 
 const Store = mongoose.model('Store', storeSchema)

@@ -64,6 +64,7 @@ module.exports = {
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
       lootBoxPrice: Joi.number().min(0).required(),
+      img: Joi.string().uri().required(),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),
@@ -75,6 +76,7 @@ module.exports = {
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
       lootBoxPrice: Joi.number().min(0),
+      img: Joi.string().uri(),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),

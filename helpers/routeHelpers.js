@@ -64,6 +64,7 @@ module.exports = {
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
       lootBoxPrice: Joi.number().min(0).required(),
+      img: Joi.string().uri().required(),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),
@@ -75,6 +76,7 @@ module.exports = {
       description: Joi.string(),
       couponAvailable: Joi.boolean(),
       lootBoxPrice: Joi.number().min(0),
+      img: Joi.string().uri(),
       geometry: Joi.object()
         .keys({
           type: Joi.string(),
@@ -99,13 +101,15 @@ module.exports = {
       description: Joi.string(),
       value: Joi.number().min(0).required(),
       prob: Joi.number().min(0).max(1).required(),
-      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()
+      store: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+      img: Joi.string().uri().required()
     }),
     patchCouponSchema: Joi.object().keys({
       title: Joi.string(),
       description: Joi.string(),
       value: Joi.number().min(0),
-      prob: Joi.number().min(0).max(1)
+      prob: Joi.number().min(0).max(1),
+      img: Joi.string().uri()
     }),
     claimCouponSchema: Joi.object().keys({
       user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required()

@@ -24,7 +24,11 @@ const couponSchema = new Schema({
   acquiredBy: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }],
+  img: {
+    type: String,
+    required: true
+  }
 })
 
 // create a model
